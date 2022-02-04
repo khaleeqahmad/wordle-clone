@@ -1,5 +1,5 @@
 <script>
-  import { WORDS } from './words.js';
+  import { WORDS, VALID_GUESSES } from './words.js';
   import Row from './Row.svelte';
 
   let word = pickWord();
@@ -60,11 +60,21 @@
     }
   }
 
+  function validGuess(guess) {
+    return VALID_GUESSES.includes(guess);
+  }
+
   function submitGuess() {
     let guess = guesses[currentTurn];
     if (guess.length == 5) {
-      evaluate(guess);
-      currentTurn++
+
+      if (validGuess(guess)) {
+        evaluate(guess);
+        currentTurn++
+      } else {
+        alert("Not a valid guess, try again");
+        guesses[currentTurn] = "";
+      }
     };
   }
 
