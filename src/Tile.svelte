@@ -1,8 +1,9 @@
 <script>
   export let letter = "";
+  export let state = "";
 </script>
 
-<div class="tile">
+<div class="tile" data-state={state} >
   {letter}
 </div>
 
@@ -21,6 +22,21 @@
     text-transform: uppercase;
     user-select: none;
     border: 1px solid #d3d6da;
+  }
+
+  .tile[data-state=correct] {
+    color: white;
+    background: #6aaa64;
+  }
+
+  .tile[data-state=misplaced] {
+    color: white;
+    background: #c9b458;
+  }
+
+  .tile[data-state=absent] {
+    color: white;
+    background: #86888a;
   }
 
 </style>

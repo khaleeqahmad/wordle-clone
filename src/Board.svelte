@@ -1,8 +1,28 @@
 <script>
+  import { WORDS } from './words.js';
   import Row from './Row.svelte';
 
+  let word = pickWord();
+  // alert(word);
+  let currentTurn = 0;
   let guesses = ["", "", "", "", "", ""];
-  let currentGuess = 0;
+
+  let turns = {
+    0: [ "", "", "", "", "", "" ],
+    1: [ "", "", "", "", "", "" ],
+    2: [ "", "", "", "", "", "" ],
+    3: [ "", "", "", "", "", "" ],
+    4: [ "", "", "", "", "", "" ],
+    5: [ "", "", "", "", "", "" ]
+  }
+
+
+  function pickWord() {
+    let index = Math.floor(Math.random() * WORDS.length);
+    // index = 0;
+
+    return WORDS[index];
+  }
 
   function isBackspace(key) {
     return key == "Backspace"
@@ -12,25 +32,50 @@
     return key == "Enter"
   }
 
-  function isAllowedLetter(str) {
+  function isLetter(str) {
     return str.length === 1 && str.match(/[a-z]/i);
-    //TODO: Filter out incorrect letters
+  }
+
+
+  function evaluate(guess) {
+    if (guess == word) {
+      turns[currentTurn] = ["correct", "correct", "correct", "correct", "correct"];
+
+    } else {
+      let states = [];
+
+      for (let i = 0; i < 5; i++) {
+        let letter = guess[i];
+
+        if (letter == word[i]) {
+          states.push("correct");
+        } else if (word.includes(letter)) {
+          states.push("misplaced");
+        } else {
+          states.push("absent");
+        }
+      };
+
+      turns[currentTurn] = states;
+    }
   }
 
   function submitGuess() {
-    if (guesses[currentGuess].length == 5) {
-      //TODO: checkWord();
-      currentGuess++
+    let guess = guesses[currentTurn];
+    if (guess.length == 5) {
+      evaluate(guess);
+      currentTurn++
     };
   }
 
+
   function deleteLastLetter() {
-    guesses[currentGuess] = guesses[currentGuess].slice(0, -1);
+    guesses[currentTurn] = guesses[currentTurn].slice(0, -1);
   }
 
   function addLetter(letter) {
-    if (isAllowedLetter(letter) && guesses[currentGuess].length < 5) {
-      guesses[currentGuess] += letter;
+    if (isLetter(letter) && guesses[currentTurn].length < 5) {
+      guesses[currentTurn] += letter;
     };
   }
 
@@ -49,12 +94,12 @@
 </script>
 
 <div class="board">
-  <Row guess={guesses[0]}/>
-  <Row guess={guesses[1]}/>
-  <Row guess={guesses[2]}/>
-  <Row guess={guesses[3]}/>
-  <Row guess={guesses[4]}/>
-  <Row guess={guesses[5]}/>
+  <Row id="row-0" data-row=0 guess={guesses[0]} states={turns[0]}/>
+  <Row id="row-1" data-row=1 guess={guesses[1]} states={turns[1]}/>
+  <Row id="row-2" data-row=2 guess={guesses[2]} states={turns[2]}/>
+  <Row id="row-3" data-row=3 guess={guesses[3]} states={turns[3]}/>
+  <Row id="row-4" data-row=4 guess={guesses[4]} states={turns[4]}/>
+  <Row id="row-5" data-row=5 guess={guesses[5]} states={turns[5]}/>
 </div>
 
 <style>
