@@ -4,12 +4,12 @@
   let guesses = ["", "", "", "", "", ""];
   let currentGuess = 0;
 
-  function isBackspace(code) {
-    return code == 8
+  function isBackspace(key) {
+    return key == "Backspace"
   }
 
-  function isEnter(code) {
-    return code == 13
+  function isEnter(key) {
+    return key == "Enter"
   }
 
   function isAllowedLetter(str) {
@@ -35,15 +35,13 @@
   }
 
   document.onkeydown = function (event) {
-		debugger;
-    let keyCode = event.keyCode;
     let key = event.key;
 
-    if (isEnter(keyCode)) {
+    if (isEnter(key)) {
       submitGuess();
-    } else if (isBackspace(keyCode)){
+    } else if (isBackspace(key)){
       deleteLastLetter();
-    } else{
+    } else {
       addLetter(key);
     };
   }

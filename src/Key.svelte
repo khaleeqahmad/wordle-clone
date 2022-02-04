@@ -1,15 +1,17 @@
 <script>
-  export let character;
+  export let key;
+  export let control;
+  export let name;
 
   function pressKey (){
     document.dispatchEvent(
-      new KeyboardEvent('keydown', {bubbles: true, cancelable: true, key: character, keyCode: character})
+      new KeyboardEvent('keydown', {bubbles: true, cancelable: true, key: key})
     )
   }
 </script>
 
-<button on:click={pressKey} class="key">
-  {character}
+<button on:click={pressKey} class="key {control == "true" ? 'control' : undefined}">
+  {name || key }
 </button>
 
 <style>
@@ -22,6 +24,7 @@
     border-radius: 4px;
     cursor: pointer;
     user-select: none;
+    text-transform: uppercase;
     background-color: #d3d6da;
     color: #1a1a1b;
     flex: 1;
@@ -30,5 +33,10 @@
     align-items: center;
     -webkit-tap-highlight-color: rgba(0,0,0,0.3);
   }
-</style>
 
+  .control {
+    color: gray;
+    background: #efefef;
+    flex: 1.5;
+  }
+</style>
