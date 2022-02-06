@@ -112,6 +112,13 @@
   <Row id="row-5" data-row=5 guess={guesses[5]} states={turns[5]}/>
 </div>
 
+<div class="answer-box">
+  {#if currentTurn > 5 }
+    <Row guess={word} states={["answer", "answer", "answer", "answer", "answer"]}/>
+  {/if}
+</div>
+
+
 <style>
   .board {
     width: 350px;
@@ -123,5 +130,9 @@
     grid-gap: 5px;
     padding: 10px;
     box-sizing: border-box;
+  }
+
+  .answer-box {
+    width: 350px;
   }
 </style>

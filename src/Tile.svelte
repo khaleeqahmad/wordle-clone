@@ -24,6 +24,12 @@
     border: 1px solid #d3d6da;
   }
 
+  .tile[data-state=answer] {
+    color: black;
+    border: 1px solid black;
+    background: #6aaa64;
+  }
+
   .tile[data-state=correct] {
     color: white;
     background: #6aaa64;
