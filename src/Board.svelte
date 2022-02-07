@@ -36,28 +36,25 @@
     return str.length === 1 && str.match(/[a-z]/i);
   }
 
-
   function evaluate(guess) {
-    if (guess == word) {
-      turns[currentTurn] = ["correct", "correct", "correct", "correct", "correct"];
+    let states = [];
+    let remainingLetters = word;
 
-    } else {
-      let states = [];
+    for (let i = 0; i < guess.length; i++) {
+      let letter = guess[i];
 
-      for (let i = 0; i < 5; i++) {
-        let letter = guess[i];
+      if (letter == word[i]) {
+        states.push("correct");
+        remainingLetters = remainingLetters.replace(letter, "");
+      } else if (remainingLetters.includes(letter)) {
+        states.push("misplaced");
+        remainingLetters = remainingLetters.replace(letter, "");
+      } else {
+        states.push("absent");
+      }
+    };
 
-        if (letter == word[i]) {
-          states.push("correct");
-        } else if (word.includes(letter)) {
-          states.push("misplaced");
-        } else {
-          states.push("absent");
-        }
-      };
-
-      turns[currentTurn] = states;
-    }
+    turns[currentTurn] = states;
   }
 
   function validGuess(guess) {
