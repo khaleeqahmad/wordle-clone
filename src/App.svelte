@@ -1,15 +1,13 @@
 <script>
-  import Board from './Board.svelte';
-  import Keyboard from './Keyboard.svelte'
+  import Game from './Game.svelte';
 </script>
 
 
 <main>
-  <h1>Wordle Clone</h1>
+  <h1>Wordle&nbsp;Clone</h1>
   <p>Guess the word</p>
 
-  <Board/>
-  <Keyboard/>
+  <Game/>
 </main>
 
 <style>

@@ -1,112 +1,19 @@
 <script>
-  import { WORDS, VALID_GUESSES } from './words.js';
   import Row from './Row.svelte';
 
-  let word = pickWord();
-  // alert(word);
-  let currentTurn = 0;
-  let guesses = ["", "", "", "", "", ""];
-
-  let turns = {
-    0: [ "", "", "", "", "", "" ],
-    1: [ "", "", "", "", "", "" ],
-    2: [ "", "", "", "", "", "" ],
-    3: [ "", "", "", "", "", "" ],
-    4: [ "", "", "", "", "", "" ],
-    5: [ "", "", "", "", "", "" ]
-  }
-
-
-  function pickWord() {
-    let index = Math.floor(Math.random() * WORDS.length);
-    // index = 0;
-
-    return WORDS[index];
-  }
-
-  function isBackspace(key) {
-    return key == "Backspace"
-  }
-
-  function isEnter(key) {
-    return key == "Enter"
-  }
-
-  function isLetter(str) {
-    return str.length === 1 && str.match(/[a-z]/i);
-  }
-
-  function evaluate(guess) {
-    let states = [];
-    let remainingLetters = word;
-
-    for (let i = 0; i < guess.length; i++) {
-      let letter = guess[i];
-
-      if (letter == word[i]) {
-        states.push("correct");
-        remainingLetters = remainingLetters.replace(letter, "");
-      } else if (remainingLetters.includes(letter)) {
-        states.push("misplaced");
-        remainingLetters = remainingLetters.replace(letter, "");
-      } else {
-        states.push("absent");
-      }
-    };
-
-    turns[currentTurn] = states;
-  }
-
-  function validGuess(guess) {
-    return VALID_GUESSES.includes(guess);
-  }
-
-  function submitGuess() {
-    let guess = guesses[currentTurn];
-    if (guess.length == 5) {
-
-      if (validGuess(guess)) {
-        evaluate(guess);
-        currentTurn++
-      } else {
-        alert("Not a valid guess, try again");
-        guesses[currentTurn] = "";
-      }
-    };
-  }
-
-
-  function deleteLastLetter() {
-    guesses[currentTurn] = guesses[currentTurn].slice(0, -1);
-  }
-
-  function addLetter(letter) {
-    if (isLetter(letter) && guesses[currentTurn].length < 5) {
-      guesses[currentTurn] += letter;
-    };
-  }
-
-  document.onkeydown = function (event) {
-    let key = event.key;
-
-    if (isEnter(key)) {
-      submitGuess();
-    } else if (isBackspace(key)){
-      deleteLastLetter();
-    } else {
-      addLetter(key);
-    };
-  }
-
+  export let word;
+  export let currentTurn;
+  export let guesses;
+  export let turns;
 </script>
 
 <div class="board">
-  <Row id="row-0" data-row=0 guess={guesses[0]} states={turns[0]}/>
-  <Row id="row-1" data-row=1 guess={guesses[1]} states={turns[1]}/>
-  <Row id="row-2" data-row=2 guess={guesses[2]} states={turns[2]}/>
-  <Row id="row-3" data-row=3 guess={guesses[3]} states={turns[3]}/>
-  <Row id="row-4" data-row=4 guess={guesses[4]} states={turns[4]}/>
-  <Row id="row-5" data-row=5 guess={guesses[5]} states={turns[5]}/>
+  <Row data-row=0 guess={guesses[0]} states={turns[0]}/>
+  <Row data-row=1 guess={guesses[1]} states={turns[1]}/>
+  <Row data-row=2 guess={guesses[2]} states={turns[2]}/>
+  <Row data-row=3 guess={guesses[3]} states={turns[3]}/>
+  <Row data-row=4 guess={guesses[4]} states={turns[4]}/>
+  <Row data-row=5 guess={guesses[5]} states={turns[5]}/>
 </div>
 
 <div class="answer-box">
