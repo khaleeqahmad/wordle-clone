@@ -42,8 +42,12 @@
 
 <style>
   .keyboard {
-    margin: 0 8px;
+    margin-left: auto;
+    margin-right: auto;
     user-select: none;
+    bottom:0;
+    padding-top: 25px;
+    width:90%;
   }
 
   .keyboard-row {

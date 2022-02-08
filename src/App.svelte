@@ -4,8 +4,10 @@
 
 
 <main>
-  <h1>Wordle&nbsp;Clone</h1>
-  <p>Guess the word</p>
+  <header>
+    <h1>Wordle&nbsp;Clone</h1>
+    <p>Guess the word</p>
+  </header>
 
   <Game/>
 </main>
@@ -21,8 +23,13 @@
 
   h1 {
     text-transform: uppercase;
-    font-size: 3em;
-    font-weight: 100;
+    font-size: 2.5em;
+    font-weight: bold;
+  }
+
+  p {
+    text-transform: lowercase;
+    font-size: 1.5rem;
   }
 
   @media (min-width: 640px) {

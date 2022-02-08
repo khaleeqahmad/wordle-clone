@@ -13,8 +13,8 @@
     align-items: center;
     padding: 0.5rem 0;
     text-align: center;
-    font-size: 2rem;
-    line-height: 2rem;
+    font-size: 2.5rem;
+    line-height: 2.5rem;
     font-weight: bold;
     vertical-align: middle;
     box-sizing: border-box;

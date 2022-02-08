@@ -18,10 +18,12 @@
 <style>
   .key {
     font-weight: bold;
+    font-size: 1.5rem;
     border: 0;
     padding: 0;
     margin: 0 6px 0 0;
     height: 58px;
+    min-width: 2.5rem;
     border-radius: 4px;
     cursor: pointer;
     user-select: none;
@@ -37,6 +39,7 @@
   .control {
     color: gray;
     background: #efefef;
+    text-transform: lowercase;
     flex: 1.5;
   }
 
