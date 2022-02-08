@@ -7,6 +7,12 @@
   export let turns;
 </script>
 
+<div class="answer-box">
+  {#if currentTurn > 5 }
+    <Row guess={word} states={["correct", "correct", "correct", "correct", "correct"]}/>
+  {/if}
+</div>
+
 <div class="board">
   <Row data-row=0 guess={guesses[0]} states={turns[0]}/>
   <Row data-row=1 guess={guesses[1]} states={turns[1]}/>
@@ -15,13 +21,6 @@
   <Row data-row=4 guess={guesses[4]} states={turns[4]}/>
   <Row data-row=5 guess={guesses[5]} states={turns[5]}/>
 </div>
-
-<div class="answer-box">
-  {#if currentTurn > 5 }
-    <Row guess={word} states={["answer", "answer", "answer", "answer", "answer"]}/>
-  {/if}
-</div>
-
 
 <style>
   .board {
@@ -38,5 +37,11 @@
 
   .answer-box {
     width: 350px;
+    height: 82px;
+    display: grid;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px;
+    box-sizing: border-box;
   }
 </style>
