@@ -3,8 +3,13 @@
   import Board from './Board.svelte';
   import Keyboard from './Keyboard.svelte'
 
+  const CORRECT = "correct";
+  const MISPLACED = "misplaced";
+  const ABSENT = "absent";
+
   let word = pickWord();
 
+  let letters = {};
   let currentTurn = 0;
   let guesses = ["", "", "", "", "", ""];
 
@@ -82,22 +87,26 @@
       let letter = guess[i];
 
       if (letter == word[i]) {
-        states.push("correct");
+        states.push(CORRECT);
+        letters[letter] = CORRECT;
         remainingLetters = remainingLetters.replace(letter, "");
+
       } else if (remainingLetters.includes(letter)) {
-        states.push("misplaced");
+        states.push(MISPLACED);
+        if (letters[letter] == undefined) { letters[letter] = MISPLACED; }
         remainingLetters = remainingLetters.replace(letter, "");
+
       } else {
-        states.push("absent");
+        states.push(ABSENT);
+        if (letters[letter] == undefined) { letters[letter] = ABSENT; }
       }
     };
 
     turns[currentTurn] = states;
   }
-
 </script>
 
 <div class="game">
-  <Board word={word} guesses={guesses} turns={turns} currentTurn={currentTurn} />
-  <Keyboard/>
+  <Board {word} {guesses} {turns} {currentTurn} />
+  <Keyboard states={letters} />
 </div>

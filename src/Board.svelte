@@ -9,17 +9,17 @@
 
 <div class="answer-box">
   {#if currentTurn > 5 }
-    <Row guess={word} states={["correct", "correct", "correct", "correct", "correct"]}/>
+    <Row {word} states={["correct", "correct", "correct", "correct", "correct"]}/>
   {/if}
 </div>
 
 <div class="board">
-  <Row data-row=0 guess={guesses[0]} states={turns[0]}/>
-  <Row data-row=1 guess={guesses[1]} states={turns[1]}/>
-  <Row data-row=2 guess={guesses[2]} states={turns[2]}/>
-  <Row data-row=3 guess={guesses[3]} states={turns[3]}/>
-  <Row data-row=4 guess={guesses[4]} states={turns[4]}/>
-  <Row data-row=5 guess={guesses[5]} states={turns[5]}/>
+  <Row data-row=0 word={guesses[0]} states={turns[0]}/>
+  <Row data-row=1 word={guesses[1]} states={turns[1]}/>
+  <Row data-row=2 word={guesses[2]} states={turns[2]}/>
+  <Row data-row=3 word={guesses[3]} states={turns[3]}/>
+  <Row data-row=4 word={guesses[4]} states={turns[4]}/>
+  <Row data-row=5 word={guesses[5]} states={turns[5]}/>
 </div>
 
 <style>

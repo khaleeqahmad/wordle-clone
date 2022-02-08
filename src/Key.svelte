@@ -2,6 +2,7 @@
   export let key;
   export let control;
   export let name;
+  export let state;
 
   function pressKey (){
     document.dispatchEvent(
@@ -10,7 +11,7 @@
   }
 </script>
 
-<button on:click={pressKey} class="key {control == "true" ? 'control' : undefined}">
+<button on:click={pressKey} data-state={state} class="key {control == "true" ? 'control' : undefined}">
   {name || key }
 </button>
 
@@ -33,10 +34,26 @@
     align-items: center;
     -webkit-tap-highlight-color: rgba(0,0,0,0.3);
   }
-
   .control {
     color: gray;
     background: #efefef;
     flex: 1.5;
   }
+
+  .key[data-state=correct] {
+    color: white;
+    background: #6aaa64;
+
+  }
+
+  .key[data-state=misplaced] {
+    color: white;
+    background: #c9b458;
+  }
+
+  .key[data-state=absent] {
+    color: white;
+    background: #86888a;
+  }
+
 </style>
