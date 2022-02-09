@@ -87,18 +87,26 @@
       let letter = guess[i];
 
       if (letter == word[i]) {
-        states.push(CORRECT);
+        states[i] = CORRECT;
         letters[letter] = CORRECT;
         remainingLetters = remainingLetters.replace(letter, "");
 
-      } else if (remainingLetters.includes(letter)) {
-        states.push(MISPLACED);
-        if (letters[letter] == undefined) { letters[letter] = MISPLACED; }
-        remainingLetters = remainingLetters.replace(letter, "");
+      }
+    };
 
-      } else {
-        states.push(ABSENT);
-        if (letters[letter] == undefined) { letters[letter] = ABSENT; }
+    for (let i = 0; i < guess.length; i++) {
+      let letter = guess[i];
+
+      if (states[i] == undefined) {
+        if (remainingLetters.includes(letter)) {
+          states[i] = MISPLACED;
+          if (letters[letter] == undefined) { letters[letter] = MISPLACED; }
+          remainingLetters = remainingLetters.replace(letter, "");
+
+        } else {
+          states[i] = ABSENT;
+          if (letters[letter] == undefined) { letters[letter] = ABSENT; }
+        }
       }
     };
 
